@@ -1,0 +1,39 @@
+name: Fetch Groq API response
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: 'Prompt to send to Groq API (plain text)'
+        required: true
+        default: 'হ্যালো, তুমি কেমন আছো?'
+
+jobs:
+  get-response:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run fetch script
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          PROMPT: ${{ github.event.inputs.prompt }}
+        run: |
+          mkdir -p scripts
+          node scripts/fetch_groq.js
+
+      - name: Commit response.json back to repo (docs/)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/response.json
+          git commit -m "Update Groq response (from workflow_dispatch)" || echo "No changes to commit"
+          git push
