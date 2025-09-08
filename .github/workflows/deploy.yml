@@ -24,7 +24,6 @@ jobs:
 
     - name: Build with environment variables
       run: |
-        # Replace API key placeholder with actual key from secrets
         sed -i "s/REPLACE_WITH_API_KEY/${{ secrets.GROQ_API_KEY }}/g" index.html
       env:
         GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
