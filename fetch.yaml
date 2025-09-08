@@ -1,0 +1,37 @@
+name: Call Groq (manual)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-groq:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node set up
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Call Groq API
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          node -e "
+            (async ()=>{
+              const payload = {
+                model:'llama-3.3-70b-versatile',
+                messages:[{role:'user', content:'হ্যালো'}],
+                max_tokens: 50
+              };
+              const res = await fetch('https://api.groq.com/openai/v1/chat/completions',{
+                method:'POST',
+                headers:{ 'Authorization': 'Bearer ' + process.env.API_KEY, 'Content-Type':'application/json' },
+                body: JSON.stringify(payload)
+              });
+              const data = await res.json();
+              console.log('status', res.status);
+              console.log(JSON.stringify(data, null, 2));
+            })().catch(e=>{ console.error(e); process.exit(1);});
+          "
