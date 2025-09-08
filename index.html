@@ -1327,39 +1327,50 @@
                 ...conversationHistory.slice(-5) // Keep last 5 messages for context
             ];
 
-            const response = await fetch('/response.json')
-              .then(r => r.json())
-              .then(data => {
-                console.log('Groq response', data);
-                // use data.body to show chat output
-              })
-              .catch(err => console.error(err));
+            const response = await fetch('/response.json', { cache: 'no-store' });
 
-            if (!response.ok) {
-                throw new Error('API call failed');
-            }
+// defensive check
+if (!response.ok) {
+    throw new Error('Failed to load precomputed response.json from server');
+}
 
-            const data = await response.json();
-            const assistantResponse = data.choices[0].message.content;
+            const responseJson = await response.json();
+            console.log('Groq response (from docs/response.json):', responseJson);
             
-            // Track response for avoiding repetition
+            let assistantResponse = 'দুঃখিত, কিছু সমস্যা হয়েছে।';
+            
+            if (responseJson && responseJson.body) {
+                if (Array.isArray(responseJson.body.choices) && responseJson.body.choices[0]) {
+                    assistantResponse = responseJson.body.choices[0].message?.content ?? JSON.stringify(responseJson.body);
+                } else if (typeof responseJson.body === 'string') {
+                    assistantResponse = responseJson.body;
+                } else if (responseJson.body && typeof responseJson.body === 'object') {
+                    // Try common fallback fields
+                    assistantResponse = responseJson.body.choices?.[0]?.message?.content
+                        || responseJson.body.choices?.[0]?.text
+                        || JSON.stringify(responseJson.body);
+                } else {
+                    assistantResponse = JSON.stringify(responseJson.body);
+                }
+            } else if (responseJson && responseJson.ok === false && responseJson.error) {
+                assistantResponse = `Error from runner: ${responseJson.error}`;
+            }
+            
+            console.log('Assistant text:', assistantResponse);
+            
             conversationHistory.push({ role: 'assistant', content: assistantResponse });
             lastResponses.push(assistantResponse.substring(0, 50));
-            if (lastResponses.length > 3) {
-                lastResponses.shift();
-            }
+            if (lastResponses.length > 3) lastResponses.shift();
             
             return assistantResponse;
         }
 
-        // Handle Enter key
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
                 sendMessage();
             }
         }
 
-        // Close modal when clicking outside
         window.onclick = function(event) {
             const modal = document.getElementById('settingsModal');
             if (event.target === modal) {
@@ -1486,6 +1497,7 @@
 </body>
 
 </html>
+
 
 
 
