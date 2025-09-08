@@ -1327,7 +1327,13 @@
                 ...conversationHistory.slice(-5) // Keep last 5 messages for context
             ];
 
-            const response = await fetch('/response.json', { cache: 'no-store' });
+            const response = await fetch('/response.json')
+              .then(r => r.json())
+              .then(data => {
+                console.log('Groq response', data);
+                // use data.body to show chat output
+              })
+              .catch(err => console.error(err));
 
             if (!response.ok) {
                 throw new Error('API call failed');
@@ -1480,6 +1486,7 @@
 </body>
 
 </html>
+
 
 
 
