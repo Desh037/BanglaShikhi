@@ -1,0 +1,1507 @@
+<!DOCTYPE html> 
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাংলা শিখি - মজার বাংলা শিক্ষা</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans Bengali', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background elements */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape1 {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #FFD93D 0%, #FFB84D 100%);
+            border-radius: 50%;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #6BCF7F 0%, #4CAF50 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .shape3 {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #FF6B9D 0%, #C44569 100%);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            bottom: 10%;
+            left: 30%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-30px) rotate(90deg); }
+            50% { transform: translateY(0) rotate(180deg); }
+            75% { transform: translateY(30px) rotate(270deg); }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            padding: 25px;
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .learning-section {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .flashcard-container {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .flashcard {
+            background: linear-gradient(135deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+            border-radius: 25px;
+            padding: 45px;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flashcard::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .flashcard:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+        }
+
+        .bengali-letter {
+            font-size: 100px;
+            color: #FFFFFF;
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+            animation: letterBounce 2s infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes letterBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .letter-info {
+            font-size: 26px;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .pronunciation {
+            font-size: 22px;
+            color: #FFFFFF;
+            font-style: italic;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .visual-aid {
+            width: 140px;
+            height: 140px;
+            margin: 25px auto;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.9);
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .chat-section {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .chat-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            margin-bottom: 25px;
+            min-height: 350px;
+            max-height: 500px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .message {
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            border-radius: 20px;
+            max-width: 85%;
+            word-wrap: break-word;
+            animation: messageSlide 0.5s ease-out;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        @keyframes messageSlide {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .bot-message {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            margin-right: auto;
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #333;
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+
+        .typing-indicator {
+            display: none;
+            gap: 5px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .typing-indicator.show {
+            display: flex;
+        }
+
+        .typing-dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: typingAnimation 1.5s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingAnimation {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: 3px solid #667eea;
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.9);
+            font-family: 'Noto Sans Bengali', sans-serif;
+        }
+
+        .chat-input:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 20px rgba(118,75,162,0.3);
+            background: white;
+        }
+
+        .send-btn {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .send-btn:hover {
+            transform: scale(1.15) rotate(15deg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .progress-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .progress-section h3 {
+            color: #764ba2;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #E0E0E0, #F5F5F5);
+            height: 35px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: progressShine 2s infinite;
+        }
+
+        @keyframes progressShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .reward-stars {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 40px;
+        }
+
+        .star {
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            filter: grayscale(100%) brightness(0.7);
+            cursor: pointer;
+        }
+
+        .star.earned {
+            filter: grayscale(0%) brightness(1);
+            animation: starPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes starPop {
+            0% { transform: scale(0) rotate(0deg); }
+            50% { transform: scale(1.3) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+        .settings-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+            color: white;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .settings-btn:hover {
+            transform: rotate(180deg) scale(1.1);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 5% auto;
+            padding: 35px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: modalSlide 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: white;
+        }
+
+        @keyframes modalSlide {
+            from { 
+                transform: translateY(-100px) scale(0.8); 
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0) scale(1); 
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .api-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            font-family: 'Noto Sans Bengali', sans-serif;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        .close-modal {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .close-modal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .bengali-letter {
+                font-size: 70px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+            
+            .settings-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+    </div>
+
+    <div class="header">
+        <h1>🌈 মজার বাংলা শিক্ষা 🌈</h1>
+        <p>চলো মজা করে বাংলা শিখি!</p>
+    </div>
+
+    <div class="main-container">
+        <div class="learning-section">
+            <div class="flashcard-container">
+                <div class="flashcard" id="flashcard" onclick="flipCard()">
+                    <div class="bengali-letter" id="bengaliLetter">অ</div>
+                    <div class="letter-info" id="letterInfo">প্রথম স্বরবর্ণ</div>
+                    <div class="pronunciation" id="pronunciation">উচ্চারণ: "অ"</div>
+                    <canvas class="visual-aid" id="visualAid"></canvas>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" onclick="previousCard()">⬅️ আগের</button>
+                <button class="btn btn-secondary" onclick="playSound()">🔊 শোনো</button>
+                <button class="btn btn-success" onclick="practiceWriting()">✏️ লেখো</button>
+                <button class="btn btn-primary" onclick="nextCard()">পরের ➡️</button>
+            </div>
+
+            <div class="progress-section">
+                <h3 style="text-align: center; margin-bottom: 15px;">🏆 তোমার অগ্রগতি 🏆</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill">০%</div>
+                </div>
+                <div class="reward-stars" id="rewardStars">
+                    <span class="star">⭐</span>
+                    <span class="star">⭐</span>
+                    <span class="star">⭐</span>
+                    <span class="star">⭐</span>
+                    <span class="star">⭐</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-section">
+            <div class="chat-header">
+                <h2>🤖 তোমার বন্ধু রোবট 🤖</h2>
+                <p>আমি তোমায় বাংলা শিখতে সাহায্য করবো!</p>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    হ্যালো বন্ধু! 👋 আমি তোমার সাথে বাংলা শিখবো। প্রথমে 'অ' অক্ষর দিয়ে শুরু করি। এটা দেখো এবং লিখে দেখো! তুমি যদি কিছু জানতে চাও, আমাকে জিজ্ঞেস করো! 😊
+                </div>
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="এখানে লিখো..." onkeypress="handleKeyPress(event)">
+                <button class="send-btn" onclick="sendMessage()">📤</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Bengali alphabet data
+        const bengaliAlphabet = [
+            // Vowels (স্বরবর্ণ)
+            { letter: 'অ', type: 'স্বরবর্ণ', pronunciation: 'অ - অজগর', example: 'অজগর', meaning: 'সাপের নাম', visual: 'circle', sound: 'অ' },
+            { letter: 'আ', type: 'স্বরবর্ণ', pronunciation: 'আ - আম', example: 'আম', meaning: 'মিষ্টি ফল', visual: 'star', sound: 'আ' },
+            { letter: 'ই', type: 'স্বরবর্ণ', pronunciation: 'ই - ইঁদুর', example: 'ইঁদুর', meaning: 'ছোট প্রাণী', visual: 'triangle', sound: 'ই' },
+            { letter: 'ঈ', type: 'স্বরবর্ণ', pronunciation: 'ঈ - ঈগল', example: 'ঈগল', meaning: 'বড় পাখি', visual: 'diamond', sound: 'ঈ' },
+            { letter: 'উ', type: 'স্বরবর্ণ', pronunciation: 'উ - উট', example: 'উট', meaning: 'মরুভূমির প্রাণী', visual: 'square', sound: 'উ' },
+            { letter: 'ঊ', type: 'স্বরবর্ণ', pronunciation: 'ঊ - ঊর্ণা', example: 'ঊর্ণা', meaning: 'পশম', visual: 'hexagon', sound: 'ঊ' },
+            { letter: 'এ', type: 'স্বরবর্ণ', pronunciation: 'এ - একতারা', example: 'একতারা', meaning: 'বাদ্যযন্ত্র', visual: 'pentagon', sound: 'এ' },
+            { letter: 'ঐ', type: 'স্বরবর্ণ', pronunciation: 'ঐ - ঐরাবত', example: 'ঐরাবত', meaning: 'হাতির নাম', visual: 'octagon', sound: 'ঐ' },
+            { letter: 'ও', type: 'স্বরবর্ণ', pronunciation: 'ও - ওল', example: 'ওল', meaning: 'সবজি', visual: 'oval', sound: 'ও' },
+            { letter: 'ঔ', type: 'স্বরবর্ণ', pronunciation: 'ঔ - ঔষধ', example: 'ঔষধ', meaning: 'ওষুধ', visual: 'heart', sound: 'ঔ' },
+            // Consonants (ব্যঞ্জনবর্ণ)
+            { letter: 'ক', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'ক - কলা', example: 'কলা', meaning: 'হলুদ ফল', visual: 'banana', sound: 'ক' },
+            { letter: 'খ', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'খ - খরগোশ', example: 'খরগোশ', meaning: 'লাফানো প্রাণী', visual: 'rabbit', sound: 'খ' },
+            { letter: 'গ', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'গ - গরু', example: 'গরু', meaning: 'দুধ দেয়', visual: 'cow', sound: 'গ' },
+            { letter: 'ঘ', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'ঘ - ঘর', example: 'ঘর', meaning: 'বাড়ি', visual: 'house', sound: 'ঘ' },
+            { letter: 'চ', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'চ - চাঁদ', example: 'চাঁদ', meaning: 'রাতের আলো', visual: 'moon', sound: 'চ' },
+            { letter: 'ছ', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'ছ - ছাতা', example: 'ছাতা', meaning: 'বৃষ্টি থেকে বাঁচায়', visual: 'umbrella', sound: 'ছ' },
+            { letter: 'জ', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'জ - জল', example: 'জল', meaning: 'পানি', visual: 'drop', sound: 'জ' },
+            { letter: 'ট', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'ট - টমেটো', example: 'টমেটো', meaning: 'লাল সবজি', visual: 'tomato', sound: 'ট' },
+            { letter: 'ত', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'ত - তারা', example: 'তারা', meaning: 'আকাশের তারা', visual: 'star', sound: 'ত' },
+            { letter: 'দ', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'দ - দুধ', example: 'দুধ', meaning: 'সাদা পানীয়', visual: 'milk', sound: 'দ' },
+            { letter: 'ন', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'ন - নৌকা', example: 'নৌকা', meaning: 'জলযান', visual: 'boat', sound: 'ন' },
+            { letter: 'প', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'প - পাখি', example: 'পাখি', meaning: 'উড়ে', visual: 'bird', sound: 'প' },
+            { letter: 'ফ', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'ফ - ফুল', example: 'ফুল', meaning: 'সুন্দর গাছ', visual: 'flower', sound: 'ফ' },
+            { letter: 'ব', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'ব - বই', example: 'বই', meaning: 'পড়ার জিনিস', visual: 'book', sound: 'ব' },
+            { letter: 'ম', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'ম - মা', example: 'মা', meaning: 'মাতা', visual: 'heart', sound: 'ম' },
+            { letter: 'র', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'র - রং', example: 'রং', meaning: 'রঙ', visual: 'rainbow', sound: 'র' },
+            { letter: 'ল', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'ল - লাল', example: 'লাল', meaning: 'লাল রং', visual: 'red', sound: 'ল' },
+            { letter: 'শ', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'শ - শিশু', example: 'শিশু', meaning: 'বাচ্চা', visual: 'baby', sound: 'শ' },
+            { letter: 'স', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'স - সূর্য', example: 'সূর্য', meaning: 'সূর্য', visual: 'sun', sound: 'স' },
+            { letter: 'হ', type: 'ব্যঞ্জনবর্ণ', pronunciation: 'হ - হাতি', example: 'হাতি', meaning: 'বড় প্রাণী', visual: 'elephant', sound: 'হ' }
+        ];
+
+        let currentCardIndex = 0;
+        let progress = 0;
+        let apiKey = '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';
+        let conversationHistory = [];
+        let messageCount = 0;
+        let lastResponses = [];
+
+        // Initialize the app
+        function init() {
+            updateFlashcard();
+            updateProgress();
+            drawVisual();
+        }
+
+        // Update flashcard display
+        function updateFlashcard() {
+            const card = bengaliAlphabet[currentCardIndex];
+            document.getElementById('bengaliLetter').textContent = card.letter;
+            document.getElementById('letterInfo').textContent = `${card.type} - ${card.example} (${card.meaning})`;
+            document.getElementById('pronunciation').textContent = `উচ্চারণ: ${card.pronunciation}`;
+            drawVisual();
+        }
+
+        // Flip card animation
+        function flipCard() {
+            const flashcard = document.getElementById('flashcard');
+            if (!flashcard) return;
+            flashcard.style.transform = 'rotateY(180deg)';
+            setTimeout(() => {
+                flashcard.style.transform = 'rotateY(0deg)';
+            }, 300);
+        }
+
+        // Practice writing
+        function practiceWriting() {
+            const card = bengaliAlphabet[currentCardIndex];
+            addBotMessage(`চলো লিখি! 🖊️ "${card.letter}" লিখতে চেষ্টা করো। এটা দেখতে ${card.example} এর প্রথম অক্ষরের মতো। তুমি লিখে দেখাও!`);
+            document.getElementById('chatInput').focus();
+        }
+
+        // Enhanced visual drawing with all shapes
+        function drawVisual() {
+            const canvas = document.getElementById('visualAid');
+            if (!canvas) return;
+            const ctx = canvas.getContext && canvas.getContext('2d');
+            if (!ctx) return;
+            const card = bengaliAlphabet[currentCardIndex];
+            
+            canvas.width = 140;
+            canvas.height = 140;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Create colorful gradient
+            const gradient = ctx.createRadialGradient(70, 70, 0, 70, 70, 70);
+            gradient.addColorStop(0, '#FFD93D');
+            gradient.addColorStop(0.5, '#FF6B9D');
+            gradient.addColorStop(1, '#C66FBC');
+            ctx.fillStyle = gradient;
+            ctx.strokeStyle = '#764ba2';
+            ctx.lineWidth = 3;
+            
+            // Draw different shapes based on visual type
+            ctx.beginPath();
+            switch(card.visual) {
+                case 'circle':
+                    ctx.arc(70, 70, 50, 0, Math.PI * 2);
+                    break;
+                case 'star':
+                    drawStar(ctx, 70, 70, 5, 50, 25);
+                    break;
+                case 'triangle':
+                    ctx.moveTo(70, 20);
+                    ctx.lineTo(120, 110);
+                    ctx.lineTo(20, 110);
+                    ctx.closePath();
+                    break;
+                case 'square':
+                    ctx.rect(35, 35, 70, 70);
+                    break;
+                case 'heart':
+                    drawHeart(ctx, 70, 70, 40);
+                    break;
+                case 'diamond':
+                    ctx.moveTo(70, 20);
+                    ctx.lineTo(110, 70);
+                    ctx.lineTo(70, 120);
+                    ctx.lineTo(30, 70);
+                    ctx.closePath();
+                    break;
+                case 'hexagon':
+                    drawPolygon(ctx, 70, 70, 6, 45);
+                    break;
+                case 'pentagon':
+                    drawPolygon(ctx, 70, 70, 5, 45);
+                    break;
+                case 'octagon':
+                    drawPolygon(ctx, 70, 70, 8, 45);
+                    break;
+                case 'oval':
+                    ctx.ellipse(70, 70, 60, 40, 0, 0, Math.PI * 2);
+                    break;
+                case 'moon':
+                    drawMoon(ctx, 70, 70);
+                    break;
+                case 'sun':
+                    drawSun(ctx, 70, 70, 30);
+                    break;
+                case 'flower':
+                    drawFlower(ctx, 70, 70, 30);
+                    break;
+                case 'house':
+                    drawHouse(ctx);
+                    break;
+                case 'bird':
+                    drawBird(ctx, 70, 70);
+                    break;
+                case 'boat':
+                    drawBoat(ctx);
+                    break;
+                case 'elephant':
+                    drawElephant(ctx);
+                    break;
+                case 'banana':
+                    drawBanana(ctx);
+                    break;
+                case 'rabbit':
+                    drawRabbit(ctx);
+                    break;
+                case 'cow':
+                    drawCow(ctx);
+                    break;
+                case 'umbrella':
+                    drawUmbrella(ctx);
+                    break;
+                case 'drop':
+                    drawDrop(ctx, 70, 70);
+                    break;
+                case 'tomato':
+                    ctx.arc(70, 70, 45, 0, Math.PI * 2);
+                    break;
+                case 'book':
+                    ctx.rect(30, 35, 80, 70);
+                    break;
+                case 'baby':
+                    ctx.arc(70, 50, 25, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.ellipse(70, 90, 20, 30, 0, 0, Math.PI * 2);
+                    break;
+                case 'rainbow':
+                    drawRainbow(ctx);
+                    break;
+                case 'milk':
+                    ctx.rect(45, 40, 50, 70);
+                    break;
+                case 'red':
+                    ctx.fillStyle = '#FF0000';
+                    ctx.arc(70, 70, 45, 0, Math.PI * 2);
+                    break;
+                default:
+                    ctx.arc(70, 70, 45, 0, Math.PI * 2);
+            }
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        // Shape drawing helper functions
+        function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+            let rot = Math.PI / 2 * 3;
+            let x = cx;
+            let y = cy;
+            const step = Math.PI / spikes;
+
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - outerRadius);
+            for (let i = 0; i < spikes; i++) {
+                x = cx + Math.cos(rot) * outerRadius;
+                y = cy + Math.sin(rot) * outerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+
+                x = cx + Math.cos(rot) * innerRadius;
+                y = cy + Math.sin(rot) * innerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+            }
+            ctx.lineTo(cx, cy - outerRadius);
+            ctx.closePath();
+        }
+
+        function drawHeart(ctx, x, y, size) {
+            ctx.beginPath();
+            ctx.moveTo(x, y + size / 4);
+            ctx.quadraticCurveTo(x - size / 2, y - size / 2, x - size, y);
+            ctx.quadraticCurveTo(x - size, y - size, x, y - size / 2);
+            ctx.quadraticCurveTo(x + size, y - size, x + size, y);
+            ctx.quadraticCurveTo(x + size / 2, y - size / 2, x, y + size / 4);
+            ctx.closePath();
+        }
+
+        function drawPolygon(ctx, x, y, sides, radius) {
+            const angle = (2 * Math.PI) / sides;
+            ctx.beginPath();
+            for (let i = 0; i < sides; i++) {
+                const px = x + radius * Math.cos(i * angle - Math.PI / 2);
+                const py = y + radius * Math.sin(i * angle - Math.PI / 2);
+                if (i === 0) {
+                    ctx.moveTo(px, py);
+                } else {
+                    ctx.lineTo(px, py);
+                }
+            }
+            ctx.closePath();
+        }
+
+        function drawMoon(ctx, x, y) {
+            ctx.beginPath();
+            ctx.arc(x-10, y, 40, 0, Math.PI * 2);
+        }
+
+        function drawSun(ctx, x, y, radius) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Draw rays
+            for (let i = 0; i < 12; i++) {
+                const angle = (Math.PI * 2 / 12) * i;
+                ctx.beginPath();
+                ctx.moveTo(x + Math.cos(angle) * (radius + 5), y + Math.sin(angle) * (radius + 5));
+                ctx.lineTo(x + Math.cos(angle) * (radius + 15), y + Math.sin(angle) * (radius + 15));
+                ctx.stroke();
+            }
+        }
+
+        function drawFlower(ctx, x, y, size) {
+            // Petals
+            for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI * 2 / 6) * i;
+                ctx.beginPath();
+                ctx.arc(x + Math.cos(angle) * size, y + Math.sin(angle) * size, size/2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            }
+            // Center
+            ctx.beginPath();
+            ctx.arc(x, y, size/2, 0, Math.PI * 2);
+        }
+
+        function drawHouse(ctx) {
+            // House body
+            ctx.rect(40, 60, 60, 50);
+            ctx.fill();
+            ctx.stroke();
+            // Roof
+            ctx.beginPath();
+            ctx.moveTo(30, 60);
+            ctx.lineTo(70, 30);
+            ctx.lineTo(110, 60);
+            ctx.closePath();
+        }
+
+        function drawBird(ctx, x, y) {
+            // Simple bird shape
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, Math.PI);
+            ctx.arc(x + 20, y, 20, 0, Math.PI);
+        }
+
+        function drawBoat(ctx) {
+            // Boat hull
+            ctx.beginPath();
+            ctx.moveTo(30, 80);
+            ctx.lineTo(110, 80);
+            ctx.lineTo(100, 100);
+            ctx.lineTo(40, 100);
+            ctx.closePath();
+        }
+        function drawElephant(ctx) {
+            // Elephant body
+            ctx.beginPath();
+            ctx.arc(70, 80, 35, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            // Head
+            ctx.beginPath();
+            ctx.arc(70, 50, 25, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            // Trunk
+            ctx.beginPath();
+            ctx.quadraticCurveTo(45, 50, 35, 70);
+            ctx.stroke();
+        }
+
+        function drawBanana(ctx) {
+            ctx.beginPath();
+            ctx.arc(70, 70, 40, Math.PI * 0.2, Math.PI * 0.8);
+            ctx.lineWidth = 20;
+            ctx.strokeStyle = '#FFD93D';
+            ctx.stroke();
+        }
+
+        function drawRabbit(ctx) {
+            // Body
+            ctx.beginPath();
+            ctx.arc(70, 85, 25, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            // Head
+            ctx.beginPath();
+            ctx.arc(70, 55, 20, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            // Ears
+            ctx.beginPath();
+            ctx.ellipse(60, 35, 8, 20, -0.2, 0, Math.PI * 2);
+            ctx.ellipse(80, 35, 8, 20, 0.2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        function drawCow(ctx) {
+            // Body
+            ctx.beginPath();
+            ctx.ellipse(70, 80, 40, 25, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            // Head
+            ctx.beginPath();
+            ctx.arc(70, 50, 20, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            // Spots
+            ctx.fillStyle = '#333';
+            ctx.beginPath();
+            ctx.arc(60, 80, 8, 0, Math.PI * 2);
+            ctx.arc(85, 75, 6, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawUmbrella(ctx) {
+            // Umbrella top
+            ctx.beginPath();
+            ctx.arc(70, 60, 50, Math.PI, 0);
+            ctx.fill();
+            ctx.stroke();
+            // Handle
+            ctx.beginPath();
+            ctx.moveTo(70, 60);
+            ctx.lineTo(70, 100);
+            ctx.quadraticCurveTo(70, 110, 80, 110);
+            ctx.stroke();
+        }
+
+        function drawDrop(ctx, x, y) {
+            ctx.beginPath();
+            ctx.arc(x, y + 10, 25, 0, Math.PI * 2);
+            ctx.moveTo(x - 25, y + 10);
+            ctx.quadraticCurveTo(x, y - 30, x + 25, y + 10);
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        function drawRainbow(ctx) {
+            const colors = ['#FF0000', '#FFA500', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#8B00FF'];
+            colors.forEach((color, i) => {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.arc(70, 100, 60 - i * 8, Math.PI, 0);
+                ctx.stroke();
+            });
+        }
+
+        // Navigation functions
+        function nextCard() {
+            if (currentCardIndex < bengaliAlphabet.length - 1) {
+                currentCardIndex++;
+                updateFlashcard();
+                updateProgress();
+                
+                const card = bengaliAlphabet[currentCardIndex];
+                addBotMessage(`দারুণ! 🎉 এখন আমরা শিখবো "${card.letter}"। এটা হলো ${card.type}। ${card.example} মানে ${card.meaning}। চলো একসাথে বলি: ${card.pronunciation}! 🌟`);
+            } else {
+                addBotMessage('বাহ! তুমি সব অক্ষর শিখে ফেলেছো! 🎊 আবার শুরু থেকে শুরু করতে চাও? 🔄');
+            }
+        }
+
+        function previousCard() {
+            if (currentCardIndex > 0) {
+                currentCardIndex--;
+                updateFlashcard();
+                updateProgress();
+                
+                const card = bengaliAlphabet[currentCardIndex];
+                addBotMessage(`চলো আবার দেখি "${card.letter}"। মনে আছে এটা কী? এটা ${card.example} এর প্রথম অক্ষর! 📚`);
+            }
+        }
+
+        // Play sound using Web Speech API
+        function playSound() {
+            const card = bengaliAlphabet[currentCardIndex];
+            
+            // Use Web Speech API for Bengali
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance();
+                utterance.text = card.letter + " " + card.example;
+                utterance.lang = 'bn-BD'; // Bengali language
+                utterance.rate = 0.8; // Slower for children
+                utterance.pitch = 1.2; // Slightly higher pitch
+                speechSynthesis.speak(utterance);
+                
+                addBotMessage(`শোনো! 🔊 "${card.letter}" - ${card.example}। আবার শুনতে চাইলে বোতাম টিপো!`);
+            } else {
+                addBotMessage('দুঃখিত, তোমার ব্রাউজার সাউন্ড সাপোর্ট করে না। 😔');
+            }
+        }
+
+        // Update progress
+        function updateProgress() {
+            progress = Math.round((currentCardIndex / (bengaliAlphabet.length - 1)) * 100);
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = progress + '%';
+            progressFill.textContent = progress + '%';
+            
+            // Update stars based on progress
+            const stars = document.querySelectorAll('.star');
+            const earnedStars = Math.floor(progress / 20);
+            stars.forEach((star, index) => {
+                if (index < earnedStars) {
+                    star.classList.add('earned');
+                } else {
+                    star.classList.remove('earned');
+                }
+            });
+            
+            // Celebration messages
+            if (progress === 20) {
+                addBotMessage('🌟 প্রথম তারা পেয়েছো! চালিয়ে যাও!');
+            } else if (progress === 50) {
+                addBotMessage('🎉 অর্ধেক শেষ! তুমি খুব ভালো করছো!');
+            } else if (progress === 100) {
+                addBotMessage('🏆 অভিনন্দন! তুমি সব তারা পেয়েছো! তুমি একজন চ্যাম্পিয়ন!');
+            }
+        }
+
+        // Chat functions
+        function addBotMessage(message) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot-message';
+            messageDiv.textContent = message;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addUserMessage(message) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user-message';
+            messageDiv.textContent = message;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').classList.add('show');
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').classList.remove('show');
+        }
+
+        // Send message with Groq API integration
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            addUserMessage(message);
+            input.value = '';
+            showTypingIndicator();
+            
+            try {
+                const response = await callGroqAPI(message);
+                hideTypingIndicator();
+                addBotMessage(response);
+            } catch (error) {
+                hideTypingIndicator();
+                addBotMessage('দুঃখিত, কিছু সমস্যা হয়েছে। আবার চেষ্টা করো! 😊');
+            }
+        }
+
+        // Groq API call with specialized prompt for autistic children
+        async function callGroqAPI(userMessage) {
+            const currentCard = bengaliAlphabet[currentCardIndex];
+            
+            // Build conversation context
+            conversationHistory.push({ role: 'user', content: userMessage });
+            messageCount++;
+            
+            // Specialized system prompt for teaching Bengali to autistic children
+            const systemPrompt = `আপনি একজন অত্যন্ত ধৈর্যশীল, বন্ধুত্বপূর্ণ এবং উৎসাহব্যঞ্জক বাংলা ভাষা শিক্ষক যিনি অটিস্টিক শিশুদের শেখান। আপনার বৈশিষ্ট্য:
+
+1. **সরল ভাষা**: ছোট, সহজ বাক্য ব্যবহার করুন। জটিল শব্দ এড়িয়ে চলুন।
+
+2. **পুনরাবৃত্তি এড়ান**: একই উত্তর বারবার দেবেন না। প্রতিটি উত্তর ভিন্ন এবং আকর্ষণীয় করুন। শিশুর আগের ${messageCount} টি মেসেজ মনে রাখুন।
+
+3. **ইতিবাচক উৎসাহ**: প্রতিটি প্রচেষ্টার প্রশংসা করুন। ভুল হলেও উৎসাহ দিন।
+
+4. **ভিজ্যুয়াল বর্ণনা**: রঙ, আকার, প্রাণী এবং পরিচিত জিনিসের উদাহরণ দিন।
+
+5. **ধীর গতি**: একবারে একটি ধারণা শেখান। তাড়াহুড়া করবেন না।
+
+6. **খেলাধুলা**: শেখাকে মজার খেলা বানান। ইমোজি ব্যবহার করুন।
+
+7. **স্পষ্ট নির্দেশনা**: কী করতে হবে তা ধাপে ধাপে বলুন।
+
+8. **সংবেদনশীলতা**: শিশুর মনোযোগ ও আগ্রহের মাত্রা বুঝুন।
+
+বর্তমান অক্ষর: "${currentCard.letter}" (${currentCard.example} - ${currentCard.meaning})
+শিশুর অগ্রগতি: ${progress}%
+
+গুরুত্বপূর্ণ নিয়ম:
+- একই ধরনের উত্তর পুনরাবৃত্তি করবেন না
+- শিশুর প্রশ্নের সাথে সম্পর্কিত উত্তর দিন
+- সর্বদা উৎসাহব্যঞ্জক থাকুন
+- বাংলায় উত্তর দিন
+- সর্বোচ্চ 2-3 বাক্য ব্যবহার করুন`;
+
+            // Avoid repetitive responses by tracking last responses
+            const contextMessage = lastResponses.length > 0 ? 
+                `\n\nআগের উত্তরগুলো এড়িয়ে নতুন কিছু বলুন: ${lastResponses.join(', ')}` : '';
+
+            const messages = [
+                { role: 'system', content: systemPrompt + contextMessage },
+                ...conversationHistory.slice(-5) // Keep last 5 messages for context
+            ];
+
+            const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: 'llama-3.3-70b-versatile',
+                    messages: messages,
+                    temperature: 0.9,
+                    max_tokens: 150,
+                    top_p: 0.95,
+                    frequency_penalty: 1.2, // Avoid repetition
+                    presence_penalty: 0.8
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('API call failed');
+            }
+
+            const data = await response.json();
+            const assistantResponse = data.choices[0].message.content;
+            
+            // Track response for avoiding repetition
+            conversationHistory.push({ role: 'assistant', content: assistantResponse });
+            lastResponses.push(assistantResponse.substring(0, 50));
+            if (lastResponses.length > 3) {
+                lastResponses.shift();
+            }
+            
+            return assistantResponse;
+        }
+
+        // Handle Enter key
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Settings functions
+        function openSettings() {
+            document.getElementById('settingsModal').style.display = 'block';
+            document.getElementById('apiKey').value = apiKey;
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('settingsModal');
+            if (event.target === modal) {
+                closeSettings();
+            }
+        }
+
+        // Welcome animation
+        function welcomeAnimation() {
+            const shapes = document.querySelectorAll('.floating-shape');
+            shapes.forEach((shape, index) => {
+                setTimeout(() => {
+                    shape.style.opacity = '1';
+                }, index * 200);
+            });
+        }
+
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+            welcomeAnimation();
+            
+            // Add initial helper messages
+            setTimeout(() => {
+            }, 1000);
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 'ArrowLeft':
+                            previousCard();
+                            break;
+                        case 'ArrowRight':
+                            nextCard();
+                            break;
+                        case ' ':
+                            playSound();
+                            break;
+                    }
+                }
+            });
+            
+            // Auto-save progress
+            setInterval(() => {
+                localStorage.setItem('bengali_progress', JSON.stringify({
+                    currentIndex: currentCardIndex,
+                    progress: progress
+                }));
+            }, 5000);
+            
+            // Load saved progress
+            const savedProgress = localStorage.getItem('bengali_progress');
+            if (savedProgress) {
+                const data = JSON.parse(savedProgress);
+                currentCardIndex = data.currentIndex || 0;
+                progress = data.progress || 0;
+                updateFlashcard();
+                updateProgress();
+            }
+
+            // Add interaction tracking to all buttons (moved inside DOMContentLoaded for reliability)
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', trackInteraction);
+            });
+        });
+
+        // Touch gesture support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextCard(); // Swipe left
+            }
+            if (touchEndX > touchStartX + 50) {
+                previousCard(); // Swipe right
+            }
+        }
+
+        // Accessibility features
+        document.addEventListener('keydown', function(e) {
+            // Tab navigation
+            if (e.key === 'Tab') {
+                const focusableElements = document.querySelectorAll('button, input, .flashcard');
+                // Handle tab navigation
+            }
+            
+            // Screen reader announcements
+            if (e.key === 'r' && e.altKey) {
+                const card = bengaliAlphabet[currentCardIndex];
+                const announcement = `বর্তমান অক্ষর: ${card.letter}, ${card.type}, উদাহরণ: ${card.example} যার মানে ${card.meaning}`;
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(announcement);
+                    utterance.lang = 'bn-BD';
+                    speechSynthesis.speak(utterance);
+                }
+            }
+        });
+
+        // Performance monitoring
+        let lastInteractionTime = Date.now();
+        
+        function trackInteraction() {
+            const currentTime = Date.now();
+            const timeSinceLastInteraction = currentTime - lastInteractionTime;
+            lastInteractionTime = currentTime;
+            
+            // If child hasn't interacted for 2 minutes, send encouragement
+            if (timeSinceLastInteraction > 120000) {
+                addBotMessage('তুমি কি এখনো আছো বন্ধু? 🤗 চলো আরো মজা করি! নতুন অক্ষর দেখতে "পরের" বোতাম টিপো!');
+            }
+        }
+    </script>
+</body>
+</html>
