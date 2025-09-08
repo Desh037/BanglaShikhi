@@ -8,12 +8,18 @@ on:
         required: true
         default: 'হ্যালো, তুমি কেমন আছো?'
 
+permissions:
+  contents: write
+
 jobs:
   get-response:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -25,7 +31,6 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           PROMPT: ${{ github.event.inputs.prompt }}
         run: |
-          mkdir -p scripts
           node scripts/fetch_groq.js
 
       - name: Commit response.json back to repo (docs/)
