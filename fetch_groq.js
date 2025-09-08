@@ -1,21 +1,28 @@
-const fs = require('fs');
+import fs from 'fs';
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.GROQ_API_KEY;
 const PROMPT = process.env.PROMPT || 'হ্যালো';
 
 if (!API_KEY) {
-  console.error('Missing API_KEY (provide via GitHub secret).');
+  console.error('Missing GROQ_API_KEY (provide via GitHub secret).');
   process.exit(1);
 }
 
 const messages = [
-  { role: 'system', content: 'আপনি একটি বন্ধুত্বপূর্ণ বাংলা শিক্ষক।' },
-  { role: 'user', content: PROMPT }
+  {
+    role: 'system',
+    content: 'আপনি একটি বন্ধুত্বপূর্ণ বাংলা শিক্ষক।'
+  },
+  {
+    role: 'user',
+    content: PROMPT
+  }
 ];
 
 async function run() {
   try {
-    console.log('Calling Groq API with prompt:', PROMPT);
+    console.log('Making request to Groq API...');
+    
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -34,37 +41,45 @@ async function run() {
     });
 
     const text = await res.text();
+    console.log('API Response Status:', res.status);
+    console.log('API Response Text:', text);
 
     const out = {
       ok: res.ok,
       status: res.status,
       statusText: res.statusText,
       fetched_at: new Date().toISOString(),
-      body: null,
-      raw: text
+      body: null
     };
 
     try {
       out.body = JSON.parse(text);
     } catch (e) {
+      console.error('Failed to parse JSON:', e.message);
       out.body = text;
     }
 
     fs.mkdirSync('docs', { recursive: true });
     fs.writeFileSync('docs/response.json', JSON.stringify(out, null, 2), 'utf-8');
 
-    console.log('Wrote docs/response.json; API status:', res.status, res.statusText);
-
     if (!res.ok) {
-      console.error('API returned non-OK:', out.status, out.statusText, out.body);
+      console.error('API returned non-OK:', out.status, out.statusText);
+      console.error('Response body:', out.body);
       process.exit(1);
     } else {
       console.log('Saved response to docs/response.json');
+      console.log('Response preview:', out.body?.choices?.[0]?.message?.content || 'No content');
     }
   } catch (err) {
-    console.error('Fetch failed', err);
+    console.error('Fetch failed:', err);
+    
     fs.mkdirSync('docs', { recursive: true });
-    fs.writeFileSync('docs/response.json', JSON.stringify({ ok:false, error: String(err), time: new Date().toISOString() }, null, 2));
+    fs.writeFileSync('docs/response.json', JSON.stringify({
+      ok: false,
+      error: String(err),
+      time: new Date().toISOString()
+    }, null, 2));
+    
     process.exit(1);
   }
 }
