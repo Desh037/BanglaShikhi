@@ -1,4 +1,4 @@
-import fs from 'fs';
+const fs = require('fs');
 
 const API_KEY = process.env.API_KEY;
 const PROMPT = process.env.PROMPT || 'হ্যালো';
@@ -15,6 +15,7 @@ const messages = [
 
 async function run() {
   try {
+    console.log('Calling Groq API with prompt:', PROMPT);
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -33,13 +34,14 @@ async function run() {
     });
 
     const text = await res.text();
-    // Save both status and body so you can debug easily
+
     const out = {
       ok: res.ok,
       status: res.status,
       statusText: res.statusText,
       fetched_at: new Date().toISOString(),
-      body: null
+      body: null,
+      raw: text
     };
 
     try {
@@ -48,19 +50,19 @@ async function run() {
       out.body = text;
     }
 
-    // Ensure docs folder exists (GitHub Pages can serve docs/)
     fs.mkdirSync('docs', { recursive: true });
     fs.writeFileSync('docs/response.json', JSON.stringify(out, null, 2), 'utf-8');
 
+    console.log('Wrote docs/response.json; API status:', res.status, res.statusText);
+
     if (!res.ok) {
-      console.error('API returned non-OK:', out.status, out.statusText);
+      console.error('API returned non-OK:', out.status, out.statusText, out.body);
       process.exit(1);
     } else {
       console.log('Saved response to docs/response.json');
     }
   } catch (err) {
     console.error('Fetch failed', err);
-    // write error to file for debugging
     fs.mkdirSync('docs', { recursive: true });
     fs.writeFileSync('docs/response.json', JSON.stringify({ ok:false, error: String(err), time: new Date().toISOString() }, null, 2));
     process.exit(1);
